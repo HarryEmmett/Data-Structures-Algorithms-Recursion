@@ -23,22 +23,25 @@ class LinkedList {
     result = [node.name, ...this.listString(node.next)];
 
     if (node.name === null) {
+      const list = result.reduce((a, b) => {
+        return a + `(${b === null ? "Head" : b}) -> `;
+      }, "");
       // log at the top of recursion
-      console.log(
-        result.reduce((a, b) => {
-          return a + `(${b === null ? "Head" : b}) -> `;
-        }, "")
-      );
+      console.log(list + "(End)");
     }
     return result;
+  }
+
+  createNodes() {
+    this.append("bob");
+    this.append("bill");
+    this.append("bo");
+    this.append("john");
   }
 }
 
 const a = new LinkedList();
-// a.append("bob");
-// a.append("bill");
-// a.append("bo");
-// a.append("john");
+a.createNodes();
 a.listString();
 
 // prepend() {}
