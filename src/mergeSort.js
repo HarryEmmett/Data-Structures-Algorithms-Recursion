@@ -4,6 +4,7 @@ function merge(left, right) {
   let rightCount = 0;
   let leftCount = 0;
 
+  // once you get to the end of the left or right array we merge the rest of the remaining arrays as they should be in place
   while (leftCount < left.length && rightCount < right.length) {
     if (left[leftCount] > right[rightCount]) {
       result.push(right[rightCount]);
