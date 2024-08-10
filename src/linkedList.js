@@ -1,4 +1,4 @@
-class Node {
+export class Node {
   constructor(name = null, next = null) {
     this.name = name;
     this.next = next;
@@ -166,3 +166,5 @@ console.log(a.atIndex(4));
 console.log(a.atIndex(5));
 console.log(a.atIndex(6));
 console.log(a.atIndex(7));
+
+export { LinkedList };
