@@ -1,11 +1,11 @@
-export class Node {
+class Node {
   constructor(name = null, next = null) {
-    this.name = name;
+    this.value = name;
     this.next = next;
   }
 }
 
-class LinkedList {
+export default class LinkedList {
   node;
   constructor() {
     this.node = new Node();
@@ -28,11 +28,15 @@ class LinkedList {
   }
 
   getArrayList(size = false) {
-    if (this.node.next === null) return [];
+    if (this.node.next === null) return size ? 0 : [];
     let current = this.node;
     const results = [];
+
     while (current) {
-      results.push(current.name === null ? "Head" : current.name);
+      let valueToUse =
+        typeof value === "object" ? current.value : current.value;
+
+      results.push(current.value === null ? "Head" : valueToUse);
       current = current.next;
     }
 
@@ -41,7 +45,7 @@ class LinkedList {
 
   getHead() {
     if (this.node.next === null) return null;
-    return this.node.next.name;
+    return this.node.next.value;
   }
 
   getTail() {
@@ -63,7 +67,7 @@ class LinkedList {
     }
 
     if (index === count) {
-      return current.name;
+      return current.value;
     } else {
       return false;
     }
@@ -86,10 +90,15 @@ class LinkedList {
 
     let count = 0;
     let current = this.node;
+
+    let valueToUse = typeof value === "object" ? value.key : value;
+
     while (current.next) {
       current = current.next;
+      let currentValueToUse =
+        typeof value === "object" ? current.value.key : current.value;
       count++;
-      if (current.name === value) return index ? count : true;
+      if (currentValueToUse === valueToUse) return index ? count : true;
     }
 
     return false;
@@ -116,12 +125,32 @@ class LinkedList {
     }
   }
 
+  replaceAt(value, index) {
+    if (index <= 0) return "Invalid index";
+
+    let count = 0;
+    let current = this.node;
+    let last = this.node.next;
+    while (current.next && count < index) {
+      current = current.next;
+      last = last.next;
+      count++;
+      if (count === index) break;
+    }
+
+    if (index === count) {
+      current.value = value;
+    } else {
+      return false;
+    }
+  }
+
   listString(node = this.node) {
     let result;
-    if (node.next === null) return [node.name];
-    result = [node.name, ...this.listString(node.next)];
+    if (node.next === null) return [node.value];
+    result = [node.value, ...this.listString(node.next)];
 
-    if (node.name === null) {
+    if (node.value === null) {
       const list = result.reduce((a, b) => {
         return a + `(${b === null ? "Head" : b}) -> `;
       }, "");
@@ -143,28 +172,26 @@ class LinkedList {
   }
 }
 
-const a = new LinkedList();
-a.createNodes();
-a.prepend("frank");
-a.listStringLoop();
-a.insertAt("new one", 10);
-a.insertAt("new one", 1);
-a.insertAt("new one 2", 1);
-a.insertAt("new one 3", 5);
-console.log(a.contains("tim"));
-console.log(a.contains("frank"));
-a.listString();
-a.pop();
-a.listString();
-console.log(a.getHead(), a.getTail());
-console.log(a.getArrayList(), a.getArrayList(true));
-console.log(a.atIndex(0));
-console.log(a.atIndex(1));
-console.log(a.atIndex(2));
-console.log(a.atIndex(3));
-console.log(a.atIndex(4));
-console.log(a.atIndex(5));
-console.log(a.atIndex(6));
-console.log(a.atIndex(7));
-
-export { LinkedList };
+// const a = new LinkedList();
+// a.createNodes();
+// a.prepend("frank");
+// a.listStringLoop();
+// a.insertAt("new one", 10);
+// a.insertAt("new one", 1);
+// a.insertAt("new one 2", 1);
+// a.insertAt("new one 3", 5);
+// console.log(a.contains("tim"));
+// console.log(a.contains("frank"));
+// a.listString();
+// a.pop();
+// a.listString();
+// console.log(a.getHead(), a.getTail());
+// console.log(a.getArrayList(), a.getArrayList(true));
+// console.log(a.atIndex(0));
+// console.log(a.atIndex(1));
+// console.log(a.atIndex(2));
+// console.log(a.atIndex(3));
+// console.log(a.atIndex(4));
+// console.log(a.atIndex(5));
+// console.log(a.atIndex(6));
+// console.log(a.atIndex(7));
