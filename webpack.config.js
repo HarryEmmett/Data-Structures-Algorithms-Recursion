@@ -2,7 +2,7 @@
 const path = require("path");
 
 module.exports = {
-  entry: "./src/hashMap.js",
+  entry: "./src/binarySearchTree.js",
   output: {
     filename: "main.js",
     path: path.resolve(__dirname, "dist"),
