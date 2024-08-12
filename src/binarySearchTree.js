@@ -113,4 +113,5 @@ a.prettyPrint(tree);
 a.delete(40);
 a.delete(1);
 a.delete(4);
+a.delete(5000);
 a.prettyPrint(tree);
