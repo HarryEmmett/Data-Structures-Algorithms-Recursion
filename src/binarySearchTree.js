@@ -57,11 +57,29 @@ class Tree {
 
   delete(value) {
     if (typeof value !== "number") return "Invalid input";
-    this.array = this.d(value);
+    this.array = this.d(value, this.array);
   }
 
-  d(value) {
-    console.log(value);
+  d(value, array) {
+    if (array === undefined) {
+      return array;
+    }
+
+    if (value > array.data) {
+      array.right = this.d(value, array.right);
+    } else if (value < array.data) {
+      array.left = this.d(value, array.left);
+    }
+
+    if (array.data === value) {
+      if (array.left || array.right) {
+        // need to check if has childred
+      } else {
+        array = undefined;
+      }
+    }
+
+    return array;
   }
 
   prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -90,4 +108,9 @@ a.prettyPrint(tree);
 a.insert(1);
 a.insert(100);
 a.insert(3);
+a.insert(40);
+a.prettyPrint(tree);
+a.delete(40);
+a.delete(1);
+a.delete(4);
 a.prettyPrint(tree);
