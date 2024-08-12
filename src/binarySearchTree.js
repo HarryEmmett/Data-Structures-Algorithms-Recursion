@@ -73,7 +73,7 @@ class Tree {
 
     if (array.data === value) {
       if (array.left || array.right) {
-        // need to check if has childred
+        // need to check if has children
       } else {
         array = undefined;
       }
