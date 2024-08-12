@@ -73,7 +73,11 @@ class Tree {
 
     if (array.data === value) {
       if (array.left || array.right) {
-        // need to check if has children
+        // One child node
+        if (array.left === undefined) return array.right;
+        if (array.right === undefined) return array.left;
+
+        // more than one child
       } else {
         array = undefined;
       }
@@ -110,8 +114,10 @@ a.insert(100);
 a.insert(3);
 a.insert(40);
 a.prettyPrint(tree);
-a.delete(40);
-a.delete(1);
-a.delete(4);
-a.delete(5000);
+// a.delete(40);
+// a.delete(1);
+// a.delete(4);
+// a.delete(5000);
+a.delete(100);
+a.delete(2);
 a.prettyPrint(tree);
