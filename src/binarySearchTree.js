@@ -78,6 +78,16 @@ class Tree {
         if (array.right === undefined) return array.left;
 
         // more than one child
+        let min;
+        let temp = array;
+        while (temp.right && temp.left) {
+          min = temp.right.data;
+          temp = temp.left;
+        }
+
+        array.data = min;
+        array.right = this.d(min, array.right);
+        return array;
       } else {
         array = undefined;
       }
@@ -105,19 +115,18 @@ class Tree {
 }
 
 // const a = new Tree();
-const a = new Tree([2, 3, 4]);
+const a = new Tree([2]);
 const tree = a.root();
-a.prettyPrint(tree);
-// a.insert(100);
-a.insert(1);
 a.insert(100);
-a.insert(3);
-a.insert(40);
+a.insert(90);
+a.insert(95);
+a.insert(96);
+a.insert(98);
+a.insert(110);
+a.insert(93);
+a.insert(91);
+a.insert(94);
 a.prettyPrint(tree);
-// a.delete(40);
-// a.delete(1);
-// a.delete(4);
-// a.delete(5000);
+// a.delete(95);
 a.delete(100);
-a.delete(2);
 a.prettyPrint(tree);
