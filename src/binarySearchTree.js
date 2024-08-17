@@ -115,12 +115,98 @@ class Tree {
     const bst = this.array;
     const queue = [];
 
-    queue[0] = bst.data;
+    queue.push(bst);
 
     while (queue.length > 0) {
-      const value = queue.pop();
-      const node = this.find(value);
+      const node = queue.shift();
+      callback(node.data);
+      if (node && node.left) {
+        queue.push(node.left);
+      }
+      if (node && node.right) {
+        queue.push(node.right);
+      }
     }
+  }
+
+  inOrder(callback, node = this.array) {
+    if (typeof callback !== "function")
+      return "Please provide a callback function";
+
+    if (node === null) return;
+
+    this.inOrder(callback, node.left);
+
+    callback(node.data);
+
+    this.inOrder(callback, node.right);
+  }
+
+  preOrder(callback, node = this.array) {
+    if (typeof callback !== "function")
+      return "Please provide a callback function";
+
+    if (node === null) return;
+
+    callback(node.data);
+
+    this.preOrder(callback, node.left);
+
+    this.preOrder(callback, node.right);
+  }
+
+  postOrder(callback, node = this.array) {
+    if (typeof callback !== "function")
+      return "Please provide a callback function";
+
+    if (node === null) return;
+
+    this.postOrder(callback, node.left);
+
+    this.postOrder(callback, node.right);
+
+    callback(node.data);
+  }
+
+  height(node = this.array) {
+    if (node === null) return -1;
+
+    let leftHeight = this.height(node.left);
+    let rightHeight = this.height(node.right);
+
+    return Math.max(leftHeight, rightHeight) + 1;
+  }
+
+  depth(value, node = this.array, depth = 0) {
+    if (node === null) return -1;
+
+    if (node.data === value) return depth;
+
+    if (value < node.data) {
+      return this.depth(value, node.left, depth + 1);
+    }
+
+    return this.depth(value, node.right, depth + 1);
+  }
+
+  isBalanced(node = this.array) {
+    if (node === null) return 0;
+
+    const leftHeight = this.isBalanced(node.left);
+    if (leftHeight === -1) {
+      return -1;
+    }
+
+    const rightHeight = this.isBalanced(node.right);
+    if (rightHeight === -1) {
+      return -1;
+    }
+
+    if (Math.abs(leftHeight - rightHeight) > 1) {
+      return -1;
+    }
+
+    return Math.max(leftHeight, rightHeight) + 1;
   }
 
   prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -150,4 +236,10 @@ a.insert(1);
 a.insert(20);
 a.insert(15);
 a.prettyPrint(tree);
-a.levelOrder((callback) => console.log("my callback", callback));
+// a.levelOrder((callback) => console.log("my callback", callback));
+// a.inOrder((callback) => console.log("my callback", callback));
+// a.preOrder((callback) => console.log("my callback", callback));
+// a.postOrder((callback) => console.log("my callback", callback));
+// console.log(a.height());
+// console.log(a.depth(20));
+console.log(a.isBalanced());
